@@ -2,11 +2,13 @@ import copy
 import random
 
 class Hat:
+    contents = []
     def __init__(self, **kwargs):
-        if not kwargs or sum(kwargs.values()) < 1:
-            contents = ["color"]
-        else:
-            self.contents = kwargs
+        self.arguments = kwargs
+
+        for key, value in self.arguments.items():
+            for x in range(0,value):
+                self.contents.append(key)
             
 
     def __str__(self):
@@ -17,6 +19,7 @@ class Hat:
 def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
     print(hat)
 
-hat1 = Hat(blue=1, red=50)
-hat2 = Hat(blue=0)
-print(hat2)
+hat1 = Hat(yellow=3, blue=2, green=6)
+
+
+print(hat1)

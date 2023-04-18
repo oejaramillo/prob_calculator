@@ -17,13 +17,16 @@ class Hat:
         draw = []
         initial = copy.copy(self.contents)
         for x in range(0, balls):
-            dropped = random.choice(self.contents)
-            new = [y for y in initial if y != dropped]
+            draw.append(random.choice(self.contents))
+            new = filter(draw, initial)
             initial = new
-
-            draw.append(dropped)
             
         
+            
+            
+
+        return f'{initial} and {draw}'
+
             
             
 

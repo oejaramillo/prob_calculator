@@ -17,20 +17,16 @@ class Hat:
         draw = []
         initial = copy.copy(self.contents)
         for x in range(0, balls):
-            draw.append(random.choice(self.contents))
-            new = filter(draw, initial)
-            initial = new
-            
+            item = random.randint(0, len(initial))
+            initial.pop(item)
+            draw.append(initial[item])
+
+                        
         
             
             
 
-        return f'{initial} and {draw}'
-
-            
-            
-
-        return f'{initial} and {draw}'
+        return f'{initial} and {draw} removed {item}'
 
     
 
@@ -42,4 +38,4 @@ hat1 = Hat(yellow=3, blue=2, green=6)
 
 
 
-print(hat1.draw(2))
+print(hat1.draw(5))

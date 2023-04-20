@@ -16,10 +16,12 @@ class Hat:
     def draw(self, balls):
         draw = []
         initial = copy.copy(self.contents)
+        indices = range(0, len(initial))
         for x in range(0, balls):
-            item = random.randint(0, len(initial))
+            item = random.choice(indices)
             initial.pop(item)
             draw.append(initial[item])
+
 
                         
         

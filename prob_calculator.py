@@ -33,14 +33,26 @@ class Hat:
 
             return draw
 
-    
-
 
 def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
-    print(hat)
+    contents = hat.contents
+
+    expected = []
+    for key, value in expected_balls.items():
+        for x in range(0, value):
+           expected.append(key)
+
+    result = hat.draw(num_balls_drawn)
+    if result == expected:
+        proof = 1
+    else:
+        proof = 0
+
+
+    return f'resultados {result} esperado {expected} prueba {proof}'
 
 hat1 = Hat(yellow=3, blue=2, green=6)
 
 
 
-print(hat1.draw(2))
+print(experiment(hat1, {"yellow":2}, 2, 2000))

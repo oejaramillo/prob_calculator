@@ -14,21 +14,24 @@ class Hat:
         return f'{self.contents}'
     
     def draw(self, balls):
-        draw = []
         initial = copy.copy(self.contents)
-        indices = range(0, len(initial))
-        for x in range(0, balls):
-            item = random.choice(indices)
-            initial.pop(item)
-            draw.append(initial[item])
+        if balls > len(initial):
+            draw = initial
 
-
-                        
+            return draw
         
-            
-            
+        else:
+            draw = []
 
-        return f'{initial} and {draw} removed {item}'
+            for x in range(0, balls):
+                indices = range(0, len(initial))
+                item = random.choice(indices)
+                draw.append(initial[item])
+                new = copy.copy(initial)
+                new.pop(item)
+                initial = new
+
+            return draw
 
     
 
@@ -40,4 +43,4 @@ hat1 = Hat(yellow=3, blue=2, green=6)
 
 
 
-print(hat1.draw(5))
+print(hat1.draw(2))

@@ -35,45 +35,44 @@ class Hat:
 
 
 def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
-    contents = hat.contents
+    contents = hat.arguments
 
-    expected_colors = list(expected_balls.keys())
-    expected = []
-    for key, value in expected_balls.items():
-        for x in range(0, value):
-           expected.append(key)
+    draw = hat.draw(5)
+    draw_names = list(set(draw)) 
+    draw_counts = []
+    for x in range(0, len(draw_names)):
+        counts = draw.count(draw_names[x])
+        draw_counts.append(counts)
 
+    draw_dic = {item: draw_counts[i] for i, item in enumerate(draw_names)}
+
+    # Comprobamos si expected_balls está en draw_dic
     total = []
-    realizaciones = 0
-    for y in range(0, num_experiments):
-        result = hat.draw(num_balls_drawn)
-        
-        for x in expected_colors:
-            total.append(result.count(expected_colors))
+    expected_balls_names = list(expected_balls.keys())
 
-            if sum(total) >= len(expected):
-                realizacion = 1
-                realizaciones += realizacion
-            else:
-                realizacion = 0
-                realizaciones += realizacion
-                
+    # lista con el conteo de las bolas de expected en draw
+    for x in range(0, len(expected_balls_names)):
+        total.append(draw_dic.get(expected_balls_names[x]))
 
+    expected_balls_values = list(expected_balls.values())
+
+    # Comparamos ambas listas valor a valor
     
 
-    return f'resultado {result} esperado {expected}, realizaciones {realizaciones}, matriz {total}'
+
+
+
+
+
+
+    return f'esperado {expected_balls} in {draw_dic} resultados {total} experados {expected_balls_values} realizaciones'
 
 
 hat = Hat(black=6, red=4, green=3)
 
 probability = experiment(hat=hat,
-                  expected_balls={"red":2},
+                  expected_balls={"red":2, "black": 1},
                   num_balls_drawn=5,
                   num_experiments=5)
 
 print(probability)
-
-resultado = ['black', 'black', 'green', 'red', 'red'] 
-esperado = ['red', 'red', 'green']
-
-print(esperado in resultado)

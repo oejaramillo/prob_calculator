@@ -37,7 +37,7 @@ class Hat:
 def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
     contents = hat.arguments
 
-    draw = hat.draw(5)
+    draw = hat.draw(num_balls_drawn)
     draw_names = list(set(draw)) 
     draw_counts = []
     for x in range(0, len(draw_names)):
@@ -57,6 +57,13 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
     expected_balls_values = list(expected_balls.values())
 
     # Comparamos ambas listas valor a valor
+    try:
+        realizaciones = [expected_balls_values[x] <= total[x] for x in range(len(total))]
+    except:
+        realizaciones = False
+
+
+        
     
 
 
@@ -65,14 +72,14 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
 
 
 
-    return f'esperado {expected_balls} in {draw_dic} resultados {total} experados {expected_balls_values} realizaciones'
+    return f'esperado {expected_balls} in {draw_dic} resultados {total} experados {expected_balls_values} realizaciones, prueba {realizaciones} valor de verdad {experimento}'
 
 
 hat = Hat(black=6, red=4, green=3)
 
 probability = experiment(hat=hat,
                   expected_balls={"red":2, "black": 1},
-                  num_balls_drawn=5,
+                  num_balls_drawn=1,
                   num_experiments=5)
 
 print(probability)

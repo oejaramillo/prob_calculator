@@ -11,7 +11,7 @@ class Hat:
                 self.contents.append(key)
             
     def __str__(self):
-        return f'{self.contents}'
+        return self.contents
     
     def draw(self, balls):
         initial = copy.copy(self.contents)
@@ -61,11 +61,5 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
     return prob
 
 
-hat = Hat(black=6, red=4, green=3)
-
-probability = experiment(hat=hat,
-                  expected_balls={"red":2, "black": 1},
-                  num_balls_drawn=4,
-                  num_experiments=2000)
-
-print(probability)
+hat = Hat(red=3,blue=2)
+print(hat.contents)

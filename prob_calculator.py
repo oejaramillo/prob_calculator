@@ -58,22 +58,14 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
                 total += 0
 
     prob = total/num_experiments     
-    
-
-
-
-
-
-
-
-    return f'esperado {expected_balls} prueba: {total}'
+    return prob
 
 
 hat = Hat(black=6, red=4, green=3)
 
 probability = experiment(hat=hat,
                   expected_balls={"red":2, "black": 1},
-                  num_balls_drawn=2,
-                  num_experiments=5)
+                  num_balls_drawn=4,
+                  num_experiments=2000)
 
 print(probability)

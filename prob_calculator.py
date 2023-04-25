@@ -35,35 +35,29 @@ class Hat:
 
 
 def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
-    contents = hat.arguments
 
-    draw = hat.draw(num_balls_drawn)
-    draw_names = list(set(draw)) 
-    draw_counts = []
-    for x in range(0, len(draw_names)):
-        counts = draw.count(draw_names[x])
-        draw_counts.append(counts)
+    total = 0
+    for x in range(num_experiments):
+        draw = hat.draw(num_balls_drawn)
+        # Comprobamos si num_balls_draw está contenido en expected
+        if num_balls_drawn < sum(list(expected_balls.values())):
+            total += 0
+        else:
+            draw_names = list(set(draw)) 
+            draw_counts = []
+            for x in range(len(draw_names)):
+                counts = draw.count(draw_names[x])
+                draw_counts.append(counts)
 
-    draw_dic = {item: draw_counts[i] for i, item in enumerate(draw_names)}
+            draw_dic = {item: draw_counts[i] for i, item in enumerate(draw_names)}
+            
+            # Comprobamos si expected_balls está en draw_dic
+            if all(draw_dic.get(item, 0) >= count for item, count in expected_balls.items()):
+                total += 1
+            else:
+                total += 0
 
-    # Comprobamos si expected_balls está en draw_dic
-    total = []
-    expected_balls_names = list(expected_balls.keys())
-
-    # lista con el conteo de las bolas de expected en draw
-    for x in range(0, len(expected_balls_names)):
-        total.append(draw_dic.get(expected_balls_names[x]))
-
-    expected_balls_values = list(expected_balls.values())
-
-    # Comparamos ambas listas valor a valor
-    try:
-        realizaciones = [expected_balls_values[x] <= total[x] for x in range(len(total))]
-    except:
-        realizaciones = False
-
-
-        
+    prob = total/num_experiments     
     
 
 
@@ -72,14 +66,14 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
 
 
 
-    return f'esperado {expected_balls} in {draw_dic} resultados {total} experados {expected_balls_values} realizaciones, prueba {realizaciones} valor de verdad {experimento}'
+    return f'esperado {expected_balls} prueba: {total}'
 
 
 hat = Hat(black=6, red=4, green=3)
 
 probability = experiment(hat=hat,
                   expected_balls={"red":2, "black": 1},
-                  num_balls_drawn=1,
+                  num_balls_drawn=2,
                   num_experiments=5)
 
 print(probability)

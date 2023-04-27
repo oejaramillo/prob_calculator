@@ -21,42 +21,48 @@ class Hat:
     if balls > len(initial):
       draw = initial
       return draw
-
+    
     else:
       draw = []
       for x in range(balls):
-        indices = range(0, len(initial)+1)
+        indices = range(len(initial))
         item = random.choice(indices)
         draw += [initial[item]]
         new = copy.copy(initial)
         new.pop(item)
         initial = new
+    
 
-        return draw
 
+      return draw
 
 def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
   total = 0
   for x in range(num_experiments):
-    draw = hat.draw(num_balls_drawn)
+    dr = hat.draw(num_balls_drawn)
     if num_balls_drawn < sum(list(expected_balls.values())):
       total += 0
     else:
-      draw_names = list(set(draw))
-      draw_counts = []
+      dr_names = list(set(dr))
+      dr_counts = []
 
-      for x in range(len(draw_names)):
-        counts = draw.count(draw_names[x])
-        draw_counts.append(counts)
+      for y in range(len(dr_names)):
+        counts = dr.count(dr_names[y])
+        dr_counts += [counts]
 
-        draw_dic = {item: draw_counts[i] for i, item in enumerate(draw_names)}
+        dr_dic = {key: value for key, value in zip(dr_names, dr_counts)}
 
-      if all(
-          draw_dic.get(item, 0) >= count
-          for item, count in expected_balls.items()):
-        total += 1
-      else:
-        total += 0
-
-  prob = total / num_experiments
+        if all(dr_dic.get(key, 0) >= value for key, value in expected_balls.items()):
+          total += 1
+        else:
+          total += 0
+  
+  prob = total/num_experiments
   return prob
+
+hat = Hat(blue=3,red=2,green=6)
+probability = experiment(hat=hat, 
+                         expected_balls={"blue":2,"green":1}, 
+                         num_balls_drawn=4, 
+                         num_experiments=1000)
+print(probability)

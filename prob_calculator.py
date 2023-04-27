@@ -28,10 +28,11 @@ class Hat:
         indices = range(len(initial))
         item = random.choice(indices)
         draw += [initial[item]]
-        new = copy.copy(initial)
+        new = copy.deepcopy(initial)
         new.pop(item)
         initial = new
         
+      
       return draw
 
 def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
@@ -66,5 +67,5 @@ probability2 = experiment(hat=hat, expected_balls={"yellow":2,"blue":3,"test":1}
 actual2 = probability2
 expected2 = 1.0
 
-print(probability2)
+print()
 

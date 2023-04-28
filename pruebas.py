@@ -1,7 +1,9 @@
 from prob_calculator import Hat
 import random
+import copy
 
-random.seed(95)
-hat = Hat(red=5,blue=2)
-actual = hat.draw(2)
-print(actual)
+coo1 = [1,2,3,4,5,6,7,8,9,10]
+coo2= copy.deepcopy(coo1)
+coo2 += [2]
+
+print(coo1, coo2)

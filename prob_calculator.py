@@ -3,36 +3,39 @@ import random
 
 # Consider using the modules imported above.
 class Hat:
-  contents = []
 
   def __init__(self, **kwargs):
-    self.contents = []
+    self.icontents = []
+    self.contents =[]
     self.arguments = kwargs
 
     for key, value in self.arguments.items():
       for x in range(0, value):
-        self.contents += [key]
+        self.icontents += [key]
+
+    self.contents = self.icontents
 
   def __str__(self):
-    return str(self.contents)
+    return str(self.icontents)
 
   def draw(self, balls):
-    initial = copy.copy(self.contents)
+    initial = copy.copy(self.icontents)
     if balls > len(initial):
       draw = initial
+      self.contents = self.icontents
       return draw
-    
+
     else:
       draw = []
       for x in range(balls):
         indices = range(len(initial))
         item = random.choice(indices)
         draw += [initial[item]]
-        new = copy.deepcopy(initial)
+        new = copy.copy(initial)
         new.pop(item)
         initial = new
-        
-      
+
+      self.contents = new
       return draw
 
 def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
@@ -56,16 +59,4 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
   prob = total/num_experiments
   return prob 
 
-hat = Hat(blue=3,red=2,green=6)
-probability = experiment(hat=hat, expected_balls={"blue":2,"green":1}, num_balls_drawn=4, num_experiments=1000)
-actual = probability
-expected = 0.272
-
-
-hat2 = Hat(yellow=5,red=1,green=3,blue=9,test=1)
-probability2 = experiment(hat=hat, expected_balls={"yellow":2,"blue":3,"test":1}, num_balls_drawn=20, num_experiments=100)
-actual2 = probability2
-expected2 = 1.0
-
-print()
 
